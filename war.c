@@ -110,12 +110,12 @@ typedef struct {
     int tropas;
 } Territorio;
 
-// protótipos das funções:
+// Protótipos das funções:
 void limparBufferEntrada();
 void cadastrarTerritorios(Territorio territorios[], int tamanho);
 void exibirMapa(const Territorio territorios[], int tamanho);
 
-// função principal:
+// Função principal:
 int main() {
     Territorio territorios[MAX_TERRITORIOS];
 
@@ -129,15 +129,15 @@ int main() {
     return 0;
 }
 
-// implementação das funções:
+// Implementação das funções:
 
-// Limpa o buffer do teclado após o uso de scanf
+// limpa o buffer do teclado após o uso de scanf
 void limparBufferEntrada() {
     int c;
     while ((c = getchar()) != '\n' && c != EOF);
 }
 
-// Cadastra os territórios com base na entrada do usuário
+// cadastra os territórios com base na entrada do usuário
 void cadastrarTerritorios(Territorio territorios[], int tamanho) {
     printf("=== Cadastro dos Territorios ===\n");
 
