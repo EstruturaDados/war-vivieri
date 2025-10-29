@@ -31,7 +31,7 @@
 
 // --- Função Principal (main) ---
 // Função principal que orquestra o fluxo do jogo, chamando as outras funções em ordem.
-int main() {
+
     // 1. Configuração Inicial (Setup):
     // - Define o locale para português.
     // - Inicializa a semente para geração de números aleatórios com base no tempo atual.
@@ -50,9 +50,6 @@ int main() {
 
     // 3. Limpeza:
     // - Ao final do jogo, libera a memória alocada para o mapa para evitar vazamentos de memória.
-
-    return 0;
-}
 
 // --- Implementação das Funções ---
 
@@ -96,3 +93,85 @@ int main() {
 
 // limparBufferEntrada():
 // Função utilitária para limpar o buffer de entrada do teclado (stdin), evitando problemas com leituras consecutivas de scanf e getchar.
+
+
+
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_TERRITORIOS 5
+#define TAM_NOME 50
+#define TAM_COR 30
+
+// Estrutura de dados:
+typedef struct {
+    char nome[TAM_NOME];
+    char corExercito[TAM_COR];
+    int tropas;
+} Territorio;
+
+// protótipos das funções:
+void limparBufferEntrada();
+void cadastrarTerritorios(Territorio territorios[], int tamanho);
+void exibirMapa(const Territorio territorios[], int tamanho);
+
+// função principal:
+int main() {
+    Territorio territorios[MAX_TERRITORIOS];
+
+    printf("=============================================\n");
+    printf("        PROJETO WAR - NIVEL NOVATO\n");
+    printf("=============================================\n\n");
+
+    cadastrarTerritorios(territorios, MAX_TERRITORIOS);
+    exibirMapa(territorios, MAX_TERRITORIOS);
+
+    return 0;
+}
+
+// implementação das funções:
+
+// Limpa o buffer do teclado após o uso de scanf
+void limparBufferEntrada() {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+}
+
+// Cadastra os territórios com base na entrada do usuário
+void cadastrarTerritorios(Territorio territorios[], int tamanho) {
+    printf("=== Cadastro dos Territorios ===\n");
+
+    for (int i = 0; i < tamanho; i++) {
+        printf("\n--- Territorio %d ---\n", i + 1);
+
+        printf("Nome do territorio: ");
+        fgets(territorios[i].nome, TAM_NOME, stdin);
+        territorios[i].nome[strcspn(territorios[i].nome, "\n")] = '\0';
+
+        printf("Cor do exercito: ");
+        fgets(territorios[i].corExercito, TAM_COR, stdin);
+        territorios[i].corExercito[strcspn(territorios[i].corExercito, "\n")] = '\0';
+
+        printf("Numero de tropas: ");
+        scanf("%d", &territorios[i].tropas);
+        limparBufferEntrada();
+    }
+}
+
+// Exibe o estado atual do mapa
+void exibirMapa(const Territorio territorios[], int tamanho) {
+    printf("\n=============================================\n");
+    printf("          ESTADO ATUAL DO MAPA\n");
+    printf("=============================================\n");
+
+    for (int i = 0; i < tamanho; i++) {
+        printf("\nTerritorio %d\n", i + 1);
+        printf("Nome: %s\n", territorios[i].nome);
+        printf("Cor do exercito: %s\n", territorios[i].corExercito);
+        printf("Numero de tropas: %d\n", territorios[i].tropas);
+    }
+
+    printf("\n=============================================\n");
+    printf("Fim da exibicao do mapa.\n");
+    printf("=============================================\n");
+}
